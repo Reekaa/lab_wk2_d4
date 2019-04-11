@@ -9,15 +9,17 @@ describe('pub tests', () => {
   let youngNeil;
   let gin;
   let tequila;
-  let fishChips;
+  let food;
+  let biscuit;
 
   beforeEach(() => {
-    pub = new Pub('The Drunken Bob', 1000, [gin, tequila]);
+    pub = new Pub('The Drunken Bob', 1000, [gin, tequila, gin, tequila], [food, biscuit]);
     drunkBob = new Customer('Bob', 500, 37);
     youngNeil = new Customer('Neil', 30, 16);
     gin = new Drink('Botanist', 10, 5);
     tequila = new Drink('tequila', 5, 21);
-    fishChips = new Food('Fish and chips', 6, 5);
+    food = new Food('Fish and chips', 6, 5);
+    biscuit = new Food('Biscuit', 10, 10);
   })
 
   test('pub should have a name', () => {
@@ -74,29 +76,30 @@ describe('pub tests', () => {
     expect(pub.till).toBe(1005);
   });
 
-  xtest('food should have a name', () => {
+  test('food should have a name', () => {
     expect(food.name).toBe('Fish and chips');
   });
 
-  xtest('food should have a price', () => {
+  test('food should have a price', () => {
     expect(food.price).toBe(6);
   });
 
-  xtest('food should have a rejuv level', () => {
-    expect(food.rejuvenationLevel).toBe(5);
+  test('food should have a rejuv level', () => {
+    expect(food.rejuvLevel).toBe(5);
   });
 
-  xtest('food reduces drunkeness level by rejuv level', () => {
+  test('food reduces drunkeness level by rejuv level', () => {
     drunkBob.buyDrink('tequila', pub);
     drunkBob.buyFood('Fish and chips', pub);
     expect(drunkBob.drunkness).toBe(16);
   });
 
-  xtest('pub should have a stock to keep track of drinks', () => {
-    expect(pub.stock).toEqual({ 'Botanist': 2, 'tequila': 2 });
+  test('pub should have a stock to keep track of drinks', () => {
+    pub.stockTake();
+    expect(pub.stock).toEqual({ "Biscuit": 1, "Botanist": 2, "Fish and chips": 1, "tequila": 2 });
   });
 
-  xtest('pub should be able to check total value of stock', () => {
-    expect(pub.stockValue()).toBe(30);
+  test('pub should be able to check total value of stock', () => {
+    expect(pub.stockValue()).toBe(46);
   });
 })

@@ -49,28 +49,28 @@ describe('pub tests', () => {
   });
 
   test('customer wallet should decrease by buying a drink', () => {
-    drunkBob.buyDrink('Botanist');
+    drunkBob.buyDrink('Botanist', pub);
     expect(drunkBob.wallet).toBe(490);
   });
 
-  xtest('pub till should increase when customer buys a drink', () => {
-    drunkBob.buyDrink('Botanist');
+  test('pub till should increase when customer buys a drink', () => {
+    drunkBob.buyDrink('Botanist', pub);
     expect(pub.till).toBe(1010);
   });
 
-  xtest('pub checks age of customer before serving', () => {
-    youngNeil.buyDrink('Botanist');
+  test('pub checks age of customer before serving', () => {
+    youngNeil.buyDrink('Botanist', pub);
     expect(youngNeil.wallet).toBe(30);
   });
 
-  xtest('customer drunkness level goes up after each drink', () => {
-    drunkBob.buyDrink('Botanist');
+  test('customer drunkness level goes up after each drink', () => {
+    drunkBob.buyDrink('Botanist', pub);
     expect(drunkBob.drunkness).toBe(5);
   });
 
-  xtest('pub refuses to serve people who are too drunk', () => {
-    drunkBob.buyDrink('tequila');
-    drunkBob.buyDrink('tequila');
+  test('pub refuses to serve people who are too drunk', () => {
+    drunkBob.buyDrink('tequila', pub);
+    drunkBob.buyDrink('tequila', pub);
     expect(pub.till).toBe(1005);
   });
 
@@ -87,8 +87,8 @@ describe('pub tests', () => {
   });
 
   xtest('food reduces drunkeness level by rejuv level', () => {
-    drunkBob.buyDrink('tequila');
-    drunkBob.buyFood('Fish and chips');
+    drunkBob.buyDrink('tequila', pub);
+    drunkBob.buyFood('Fish and chips', pub);
     expect(drunkBob.drunkness).toBe(16);
   });
 
